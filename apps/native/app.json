@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "scheme": "UVER",
+    "userInterfaceStyle": "automatic",
+    "orientation": "default",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "UVER",
+    "slug": "UVER",
+    "plugins": ["expo-font"],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
