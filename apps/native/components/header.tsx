@@ -17,33 +17,27 @@ export default function Header() {
 
   return (
     <View
-      className="bg-background"
+      className="bg-background flex-row items-center justify-between"
       style={{
-        height: HEADER_HEIGHT + top, // 🔑 navigation needs this
         paddingTop: top,
+        paddingBottom: 24,
+        paddingHorizontal: 16,
       }}
     >
-      <Container className="flex-1 px-6 pt-4">
-        {/* Top row */}
-        <View className="flex-row items-center justify-between">
-          <View className="flex-row items-center gap-3">
-            <Avatar alt="John" size="sm">
-              <Avatar.Image source={{ uri: AVATAR_URL }} />
-              <Avatar.Fallback>
-                {fallbackAvatarGenrator("John")}
-              </Avatar.Fallback>
-            </Avatar>
+      <View className="flex-row items-center gap-3">
+        <Avatar alt="John" size="sm">
+          <Avatar.Image source={{ uri: AVATAR_URL }} />
+          <Avatar.Fallback>{fallbackAvatarGenrator("John")}</Avatar.Fallback>
+        </Avatar>
 
-            <Text className="text-foreground text-base">
-              Hello, <Text className="font-semibold">John</Text>
-            </Text>
-          </View>
+        <Text className="text-foreground text-base">
+          Hello, <Text className="font-semibold">John</Text>
+        </Text>
+      </View>
 
-          <Pressable className="h-10 w-10 items-center justify-center rounded-full">
-            <FontAwesome size={20} name="bell" color={themeColorForeground} />
-          </Pressable>
-        </View>
-      </Container>
+      <Pressable className="h-10 w-10 items-center justify-center rounded-full">
+        <FontAwesome size={20} name="bell" color={themeColorForeground} />
+      </Pressable>
     </View>
   );
 }

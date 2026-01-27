@@ -1,8 +1,5 @@
-import { Card } from "heroui-native";
-import { Text, View } from "react-native";
-
+import { Text } from "react-native";
 import { Container } from "@/components/container";
-import Header from "@/components/header";
 
 export default function Home() {
   return (
