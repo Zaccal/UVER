@@ -7,7 +7,6 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 
 import { AppThemeProvider } from "@/contexts/app-theme-context";
 import { queryClient } from "@/utils/orpc";
-import Header from "@/components/header";
 
 export const unstable_settings = {
   initialRouteName: "(drawer)",
