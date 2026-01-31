@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { TextField } from "heroui-native";
-import InputStartContent from "./common/InputStartContent";
+import { Input } from "./ui/input";
+import { Button } from "heroui-native";
 
 interface SearchInputProps {
   className?: string;
@@ -8,14 +8,16 @@ interface SearchInputProps {
 
 export default function SearchInput({ className }: SearchInputProps) {
   return (
-    <>
-      <TextField className={className}>
-        <Ionicons name="search" size={24} color="gray" />
-        <TextField.Input
-          className="r"
-          placeholder="Search university, location"
-        />
-      </TextField>
-    </>
+    <Input.Root className={className}>
+      <Input.Start>
+        <Ionicons name="search" size={20} color="gray" />
+      </Input.Start>
+      <Input.Field placeholder="Search univercity, location..." />
+      <Input.End>
+        <Button isIconOnly size="sm" className="bg-blue-200">
+          <Ionicons name="options" size={20} color="#4478eb" />
+        </Button>
+      </Input.End>
+    </Input.Root>
   );
 }
