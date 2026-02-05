@@ -5,6 +5,7 @@ import { Avatar, useThemeColor } from "heroui-native";
 import { Container } from "./container";
 import { fallbackAvatarGenrator } from "@/utils/utils";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { ThemeToggle } from "./theme-toggle";
 
 const AVATAR_URL =
   "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic-cse.canva.com%2Fblob%2F935464%2F1600w-HdnNPtnguw4.jpg&f=1&nofb=1";
@@ -31,9 +32,12 @@ export default function Header() {
         <Text className="text-foreground text-base">Hello, John</Text>
       </View>
 
-      <Pressable className="h-10 w-10 items-center justify-center rounded-full">
-        <FontAwesome size={20} name="bell" color={themeColorForeground} />
-      </Pressable>
+      <View className="flex-row items-center gap-3">
+        <Pressable className="h-10 w-10 items-center justify-center rounded-full">
+          <FontAwesome size={20} name="bell" color={themeColorForeground} />
+        </Pressable>
+        <ThemeToggle />
+      </View>
     </View>
   );
 }

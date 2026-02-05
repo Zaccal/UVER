@@ -8,6 +8,20 @@
       "when": 1769055605120,
       "tag": "0000_fair_molecule_man",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1770176139196,
+      "tag": "0001_smart_nomad",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770263774151,
+      "tag": "0002_gigantic_rhodey",
+      "breakpoints": true
     }
   ]
 }

@@ -4,7 +4,18 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@UVER/db": [
+        "./packages/db/src/index.ts"
+      ],
+      "@UVER/db/*": [
+        "./packages/db/src/*"
+      ]
+    },
     "verbatimModuleSyntax": true,
     "strict": true,
     "skipLibCheck": true,
@@ -17,6 +28,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["bun"]
+    "types": [
+      "bun"
+    ]
   }
 }

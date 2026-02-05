@@ -1,0 +1,1 @@
+ALTER TABLE "institutions" ADD COLUMN "website" text NOT NULL;

@@ -10,7 +10,7 @@ interface InputProps {
 
 export function Input({ children, className }: InputProps) {
   return (
-    <View className={cn("bg-default rounded-3xl pl-4 pr-4", className)}>
+    <View className={cn("light:bg-white bg-default rounded-3xl pl-4 pr-4", className)}>
       <View className="flex-row justify-between items-center">
         <View className="flex-row gap-2 items-center">
           {Array.isArray(children) ? children.filter(child => child.type === InputStart) : null}

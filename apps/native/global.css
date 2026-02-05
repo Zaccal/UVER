@@ -3,3 +3,14 @@
 @import "heroui-native/styles";
 
 @source './node_modules/heroui-native/lib';
+
+@layer theme {
+    :root {
+        --accent: #4776ed;
+    }
+
+    @variant light {
+        --background: #f9f9fb;
+
+    }
+}

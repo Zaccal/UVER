@@ -6,6 +6,12 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@UVER/db": [
+        "../../packages/db/src/index.ts"
+      ],
+      "@UVER/db/*": [
+        "../../packages/db/src/*"
       ]
     }
   },
