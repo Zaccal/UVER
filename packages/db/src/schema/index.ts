@@ -12,6 +12,13 @@ export const Institutions = pgTable("institutions", {
   description: text("description").notNull(),
   rating: real("rating").default(5.0),
   website: text("website").notNull(),
+  address: text("address").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  applicationDeadline: timestamp("application_deadline").defaultNow().notNull()
 });
 
 export type Institution = typeof Institutions.$inferSelect;

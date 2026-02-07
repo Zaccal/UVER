@@ -1,7 +1,7 @@
 import { institutionContext } from "@/contexts/institution-context";
 import { Card } from "heroui-native";
 
-export default function InstitutionsCardTitle() {
+export function InstitutionsCardTitle() {
   const data = institutionContext.useSelect(state => state.data)
 
   return (

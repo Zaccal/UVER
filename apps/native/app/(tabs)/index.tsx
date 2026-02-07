@@ -16,7 +16,11 @@ const institutions_data: Institution[] = [
     logo: LOGO_URL,
     name: "University of Example",
     rating: 4.5,
-    website: "https://example.com"
+    website: "https://example.com",
+    address: "Los Angeles, California, 90089, United States",
+    applicationDeadline: new Date("08.03.2026"),
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "2",
@@ -25,7 +29,11 @@ const institutions_data: Institution[] = [
     logo: LOGO_URL,
     name: "University of Example",
     rating: 5,
-    website: "https://example.com"
+    website: "https://example.com",
+    address: "Los Angeles, California, 90089, United States",
+    applicationDeadline: new Date("08.03.2026"),
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "3",
@@ -34,7 +42,11 @@ const institutions_data: Institution[] = [
     logo: LOGO_URL,
     name: "University of Example",
     rating: 4,
-    website: "https://example.com"
+    website: "https://example.com",
+    address: "Los Angeles, California, 90089, United States",
+    applicationDeadline: new Date("08.03.2026"),
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "4",
@@ -43,7 +55,11 @@ const institutions_data: Institution[] = [
     logo: LOGO_URL,
     name: "University of Example",
     rating: 3,
-    website: "https://example.com"
+    website: "https://example.com",
+    address: "Los Angeles, California, 90089, United States",
+    applicationDeadline: new Date("08.03.2026"),
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
     id: "5",
@@ -52,7 +68,11 @@ const institutions_data: Institution[] = [
     logo: LOGO_URL,
     name: "University of Example",
     rating: 2,
-    website: "https://example.com"
+    website: "https://example.com",
+    address: "Los Angeles, California, 90089, United States",
+    applicationDeadline: new Date("08.03.2026"),
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 ]
 
@@ -95,13 +115,19 @@ export default function Home() {
             Show more 30+
           </FilterChip.ShowMore>
         </FilterChip.Root>
-        <View>
+        <View className="mt-7 flex-col gap-6">
           {institutions_data.map(data => (
             <InstitutionCard.Root key={data.id} institution={data}>
               <InstitutionCard.Image url={data.image} />
               <InstitutionCard.Content>
                 <InstitutionCard.Title />
-                {/*<InstitutionCard.Description>{data.description}</InstitutionCard.Description>*/}
+                <InstitutionCard.Rating />
+                <InstitutionCard.Address />
+                <InstitutionCard.ApplicationDeadline className="my-2" />
+                <InstitutionCard.Footer className="flex-row gap-2">
+                  <InstitutionCard.Apply className="flex-5" />
+                  <InstitutionCard.Contact className="flex-1" />
+                </InstitutionCard.Footer>
               </InstitutionCard.Content>
             </InstitutionCard.Root>
           ))}

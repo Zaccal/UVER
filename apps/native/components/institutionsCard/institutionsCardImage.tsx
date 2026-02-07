@@ -6,7 +6,7 @@ interface InstitutionCardImageProps {
   url: string
 }
 
-export default function InstitutionCardImage({ url }: InstitutionCardImageProps) {
+export function InstitutionCardImage({ url }: InstitutionCardImageProps) {
   const data = institutionContext.useSelect(state => state.data)
 
   return (
