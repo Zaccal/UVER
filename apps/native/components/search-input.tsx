@@ -1,13 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Input } from "./ui/input";
 import { Button, useThemeColor } from "heroui-native";
+import { useRouter } from "expo-router";
 
 interface SearchInputProps {
   className?: string;
 }
 
 export default function SearchInput({ className }: SearchInputProps) {
-  const accentColor = useThemeColor('accent')
+  const accentColor = useThemeColor("accent");
+  const router = useRouter();
+
+  function handleFilter() {
+    router.push("/filter");
+  }
 
   return (
     <Input.Root className={className}>
@@ -16,7 +22,12 @@ export default function SearchInput({ className }: SearchInputProps) {
       </Input.Start>
       <Input.Field placeholder="Search univercity, location..." />
       <Input.End>
-        <Button isIconOnly size="sm" className="bg-blue-100/50">
+        <Button
+          onPress={handleFilter}
+          isIconOnly
+          size="sm"
+          className="bg-blue-100/50"
+        >
           <Ionicons name="options" size={20} color={accentColor} />
         </Button>
       </Input.End>
