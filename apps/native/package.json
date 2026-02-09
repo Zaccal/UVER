@@ -28,6 +28,7 @@
     "@reatom/react": "^1000.2.2",
     "@tanstack/react-query": "^5.90.12",
     "better-auth": "catalog:",
+    "country-state-city": "^3.2.1",
     "dayjs": "^1.11.19",
     "dotenv": "catalog:",
     "expo": "^54.0.23",

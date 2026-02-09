@@ -10,7 +10,7 @@ export default function TagInputLabel({
   return (
     <Text
       {...props}
-      className={cn("text-sm font-medium text-gray-700", className)}
+      className={cn("text-sm font-medium text-gray-500 mb-2", className)}
     >
       {children}
     </Text>

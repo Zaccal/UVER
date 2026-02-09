@@ -3,7 +3,7 @@ import { TagInputContext } from "./tag-input-context";
 import { cn } from "heroui-native";
 
 interface TagInputProps {
-  children?: React.ReactElement | React.ReactElement[];
+  children?: React.ReactElement | React.ReactElement[] | React.ReactNode[];
   value?: string[];
   onChange?: (value: string[]) => void;
   className?: string;
@@ -24,9 +24,7 @@ export function TagInput({
 
   return (
     <TagInputContext.Provider value={{ value, toggle: toggleHandler }}>
-      <View className={cn(className, "flex-wrap gap-2 w-full")}>
-        {children}
-      </View>
+      <View className={cn(className, "w-full")}>{children}</View>
     </TagInputContext.Provider>
   );
 }
