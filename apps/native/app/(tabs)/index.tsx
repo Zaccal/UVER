@@ -35,7 +35,7 @@ export default function Home() {
                 <InstitutionCard.ApplicationDeadline className="my-2" />
                 <InstitutionCard.Footer className="flex-row gap-2">
                   <InstitutionCard.Apply className="flex-5" />
-                  <InstitutionCard.Contact className="flex-1" />
+                  <InstitutionCard.Contact className="flex-2" />
                 </InstitutionCard.Footer>
               </InstitutionCard.Content>
             </InstitutionCard.Root>
