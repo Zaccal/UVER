@@ -28,6 +28,15 @@ export default function TabLayout() {
             ),
           }}
         />
+        <Tabs.Screen
+          name="applications"
+          options={{
+            title: "Applications",
+            tabBarIcon: ({ color, size }: { color: string; size: number }) => (
+              <Ionicons name="document-outline" size={size} color={color} />
+            ),
+          }}
+        />
       </Tabs>
     </>
   );
