@@ -18,7 +18,16 @@ export const Institutions = pgTable("institutions", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-  applicationDeadline: timestamp("application_deadline").defaultNow().notNull()
+  applicationDeadline: timestamp("application_deadline").defaultNow().notNull(),
+  majors: text("majors").array().default([]),
+  country: text("country").notNull(),
+  latitude: text("latitude").notNull(),
+  longitude: text("longitude").notNull(),
+  city: text("city").notNull(),
+  degreeType: text("degree_type").notNull(),
+  state: text("state").notNull(),
+  tuitionPrice: text("tuition_price").notNull(),
+  zipCode: text("zip_code").notNull(),
 });
 
 export type Institution = typeof Institutions.$inferSelect;

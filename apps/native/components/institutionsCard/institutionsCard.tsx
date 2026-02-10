@@ -1,5 +1,5 @@
 import type { Institution } from "@UVER/db/schema";
-import { institutionContext } from '@/contexts/institution-context'
+import { institutionContext } from '@/components/institutionsCard/institution-context'
 import { Card } from "heroui-native";
 
 interface InstitutionsCardProps {
@@ -9,7 +9,7 @@ interface InstitutionsCardProps {
 
 export function InstitutionsCard({ institution, children }: InstitutionsCardProps) {
   return (
-    <institutionContext.Provider initialValue={{ data: institution }}>
+    <institutionContext.Provider initialValue={institution}>
       <Card className="p-0">
         {children}
       </Card>

@@ -1,4 +1,4 @@
-import { institutionContext } from "@/contexts/institution-context";
+import { institutionContext } from "@/components/institutionsCard/institution-context";
 import { Card } from "heroui-native";
 import { Image } from "react-native";
 
@@ -7,7 +7,7 @@ interface InstitutionCardImageProps {
 }
 
 export function InstitutionCardImage({ url }: InstitutionCardImageProps) {
-  const data = institutionContext.useSelect(state => state.data)
+  const data = institutionContext.useSelect(state => state)
 
   return (
     <Card.Header>

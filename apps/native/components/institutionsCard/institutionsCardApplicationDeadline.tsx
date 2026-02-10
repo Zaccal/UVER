@@ -1,4 +1,4 @@
-import { institutionContext } from "@/contexts/institution-context";
+import { institutionContext } from "@/components/institutionsCard/institution-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Card, cn } from "heroui-native";
 import dayjs from 'dayjs'
@@ -8,7 +8,8 @@ interface InstitutionsCardApplicationDeadlineProps {
 }
 
 export function InstitutionsCardApplicationDeadline({ className }: InstitutionsCardApplicationDeadlineProps) {
-  const deadline = institutionContext.useSelect(state => state.data.applicationDeadline)
+  const deadline = institutionContext.useSelect(state => state.applicationDeadline)
+  console.log(deadline)
 
   return (
     <Card.Description className={cn("text-sm", className)}>

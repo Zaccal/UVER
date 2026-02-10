@@ -1,12 +1,12 @@
-import { institutionContext } from "@/contexts/institution-context";
+import { institutionContext } from "@/components/institutionsCard/institution-context";
 import { Card } from "heroui-native";
 
 export function InstitutionsCardTitle() {
-  const data = institutionContext.useSelect(state => state.data)
+  const name = institutionContext.useSelect(state => state.name)
 
   return (
     <Card.Title>
-      {data.name}
+      {name}
     </Card.Title>
   );
 }
