@@ -9,7 +9,6 @@ interface InstitutionsCardApplicationDeadlineProps {
 
 export function InstitutionsCardApplicationDeadline({ className }: InstitutionsCardApplicationDeadlineProps) {
   const deadline = institutionContext.useSelect(state => state.applicationDeadline)
-  console.log(deadline)
 
   return (
     <Card.Description className={cn("text-sm", className)}>

@@ -7,11 +7,9 @@ import { CHIPS_MAJORS } from "@/lib/constants";
 import { Ionicons } from "@expo/vector-icons";
 import { Rating } from "@kolking/react-native-rating";
 import { Stack, useRouter } from "expo-router";
-import { Select } from "heroui-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native";
-import countries from "world-countries";
 
 interface FilterProps {}
 
