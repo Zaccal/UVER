@@ -26,7 +26,7 @@ export default function SearchInput({ className }: SearchInputProps) {
           onPress={handleFilter}
           isIconOnly
           size="sm"
-          className="bg-blue-100/50"
+          className="light:bg-blue-100/50 bg-accent/50"
         >
           <Ionicons name="options" size={20} color={accentColor} />
         </Button>
