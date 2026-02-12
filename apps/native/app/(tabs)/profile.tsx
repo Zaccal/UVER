@@ -1,19 +1,25 @@
 import { Container } from "@/components/container";
 import ResumeCard from "@/components/ResumeCard";
 import { fallbackAvatarGenrator } from "@/utils/utils";
+import { authClient } from "@/lib/auth-client";
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import { Avatar, Button, useThemeColor } from "heroui-native";
 import React from "react";
 import { Text, View } from "react-native";
 
-const AVATAR_URL =
+const FALLBACK_AVATAR_URL =
   "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic-cse.canva.com%2Fblob%2F935464%2F1600w-HdnNPtnguw4.jpg&f=1&nofb=1";
 
 export default function Profile() {
   const colorAccent = useThemeColor("accent");
   const router = useRouter();
   const foreground = useThemeColor("foreground");
+  const { data: session } = authClient.useSession();
+
+  const userName = session?.user?.name ?? "Guest";
+  const userEmail = session?.user?.email ?? "example@mail.com";
+  const avatarImage = session?.user?.image ?? FALLBACK_AVATAR_URL;
 
   return (
     <>
@@ -40,14 +46,16 @@ export default function Profile() {
           </Button>
         </View>
         <View className="flex-row items-center gap-3">
-          <Avatar alt="John" size="lg">
-            <Avatar.Image source={{ uri: AVATAR_URL }} />
-            <Avatar.Fallback>{fallbackAvatarGenrator("John")}</Avatar.Fallback>
+          <Avatar alt={userName} size="lg">
+            <Avatar.Image source={{ uri: avatarImage }} />
+            <Avatar.Fallback>{fallbackAvatarGenrator(userName)}</Avatar.Fallback>
           </Avatar>
           <View>
-            <Text className="text-foreground font-semibold text-xl">John</Text>
+            <Text className="text-foreground font-semibold text-xl">
+              {userName}
+            </Text>
             <Text className="text-gray-400 light:text-gray-700 text-sm">
-              examplemail@mail.ru
+              {userEmail}
             </Text>
           </View>
         </View>

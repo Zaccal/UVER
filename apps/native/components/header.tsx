@@ -2,17 +2,21 @@ import { View, Text, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Avatar, useThemeColor } from "heroui-native";
 
-import { Container } from "./container";
 import { fallbackAvatarGenrator } from "@/utils/utils";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { authClient } from "@/lib/auth-client";
+import { FontAwesome } from "@expo/vector-icons";
 import { ThemeToggle } from "./theme-toggle";
 
-const AVATAR_URL =
+const FALLBACK_AVATAR_URL =
   "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic-cse.canva.com%2Fblob%2F935464%2F1600w-HdnNPtnguw4.jpg&f=1&nofb=1";
 
 export default function Header() {
   const { top } = useSafeAreaInsets();
   const themeColorForeground = useThemeColor("foreground");
+  const { data: session } = authClient.useSession();
+
+  const userName = session?.user?.name ?? "Guest";
+  const avatarImage = session?.user?.image ?? FALLBACK_AVATAR_URL;
 
   return (
     <View
@@ -24,12 +28,12 @@ export default function Header() {
       }}
     >
       <View className="flex-row items-center gap-3">
-        <Avatar alt="John" size="sm">
-          <Avatar.Image source={{ uri: AVATAR_URL }} />
-          <Avatar.Fallback>{fallbackAvatarGenrator("John")}</Avatar.Fallback>
+        <Avatar alt={userName} size="sm">
+          <Avatar.Image source={{ uri: avatarImage }} />
+          <Avatar.Fallback>{fallbackAvatarGenrator(userName)}</Avatar.Fallback>
         </Avatar>
 
-        <Text className="text-foreground text-base">Hello, John</Text>
+        <Text className="text-foreground text-base">Hello, {userName}</Text>
       </View>
 
       <View className="flex-row items-center gap-3">

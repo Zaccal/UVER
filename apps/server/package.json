@@ -6,7 +6,7 @@
     "build": "tsdown",
     "check-types": "tsc -b",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
-    "dev": "bun run --hot src/index.ts --hostname 0.0.0.0",
+    "dev": "bun run --hot src/index.ts --host lan",
     "start": "bun run dist/index.js"
   },
   "dependencies": {

@@ -2,36 +2,29 @@ import { Button, ErrorView, Spinner, Surface, TextField } from "heroui-native";
 import { useState } from "react";
 import { Text, View } from "react-native";
 
-import { authClient } from "@/lib/auth-client";
-import { queryClient } from "@/utils/orpc";
+import { useSignIn } from "@/hooks/use-sign-in";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const signInMutation = useSignIn();
 
-  async function handleLogin() {
-    setIsLoading(true);
+  function handleLogin() {
     setError(null);
-
-    await authClient.signIn.email(
+    signInMutation.mutate(
+      { email, password },
       {
-        email,
-        password,
-      },
-      {
-        onError(error) {
-          setError(error.error?.message || "Failed to sign in");
-          setIsLoading(false);
+        onError(err) {
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError("Failed to sign in");
+          }
         },
         onSuccess() {
           setEmail("");
           setPassword("");
-          queryClient.refetchQueries();
-        },
-        onFinished() {
-          setIsLoading(false);
         },
       },
     );
@@ -67,8 +60,16 @@ function SignIn() {
           />
         </TextField>
 
-        <Button onPress={handleLogin} isDisabled={isLoading} className="mt-1">
-          {isLoading ? <Spinner size="sm" color="default" /> : <Button.Label>Sign In</Button.Label>}
+        <Button
+          onPress={handleLogin}
+          isDisabled={signInMutation.isPending}
+          className="mt-1"
+        >
+          {signInMutation.isPending ? (
+            <Spinner size="sm" color="default" />
+          ) : (
+            <Button.Label>Sign In</Button.Label>
+          )}
         </Button>
       </View>
     </Surface>
