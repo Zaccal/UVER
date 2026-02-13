@@ -5,7 +5,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "dev": "expo start --clear --tunnel",
+    "dev": "expo start --clear --port 3001 --tunnel",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "prebuild": "expo prebuild",
