@@ -5,7 +5,7 @@ import { TagInput } from "@/components/tag-input";
 import { CHIPS_MAJORS } from "@/lib/constants";
 import { authClient } from "@/lib/auth-client";
 import { orpc } from "@/utils/orpc";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Button, Spinner } from "heroui-native";
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
@@ -13,7 +13,16 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
   const router = useRouter();
-  const [filterTags, setFilterTags] = React.useState<string[]>([]);
+  const params = useLocalSearchParams<{
+    q?: string;
+    majors?: string;
+    country?: string;
+    city?: string;
+    rating?: string;
+    degreeType?: string;
+  }>();
+
+  const [search, setSearch] = React.useState(params.q ?? "");
   const { data: session, isPending } = authClient.useSession();
 
   const institutionsQuery = useQuery(orpc.institutions.list.queryOptions());
@@ -50,7 +59,76 @@ export default function Home() {
   }
 
   const institutions = institutionsQuery.data ?? [];
-  console.log(institutionsQuery.error);
+
+  const selectedMajors = React.useMemo(() => {
+    const raw = params.majors ?? "";
+    if (!raw) return [];
+    return String(raw)
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }, [params.majors]);
+
+  const filteredInstitutions = React.useMemo(() => {
+    const q = (params.q ?? "").toString().trim().toLowerCase();
+    const majors = selectedMajors.map((m) => m.toLowerCase());
+    const country = (params.country ?? "").toString().trim().toLowerCase();
+    const city = (params.city ?? "").toString().trim().toLowerCase();
+    const degreeType = (params.degreeType ?? "")
+      .toString()
+      .trim()
+      .toLowerCase();
+    const rating = params.rating ? Number(params.rating) : null;
+
+    return institutions.filter((inst) => {
+      if (q) {
+        const haystack = [
+          inst.name,
+          inst.address,
+          inst.city,
+          inst.country,
+          ...(inst.majors ?? []),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        if (!haystack.includes(q)) return false;
+      }
+
+      if (country && (inst.country ?? "").toLowerCase() !== country)
+        return false;
+      if (city && (inst.city ?? "").toLowerCase() !== city) return false;
+      if (degreeType && (inst.degreeType ?? "").toLowerCase() !== degreeType)
+        return false;
+      if (rating != null && (inst.rating ?? 0) < rating) return false;
+
+      if (majors.length) {
+        const instMajors = (inst.majors ?? []).map((m) => m.toLowerCase());
+        const anyMatch = majors.some((m) => instMajors.includes(m));
+        if (!anyMatch) return false;
+      }
+
+      return true;
+    });
+  }, [institutions, params, selectedMajors]);
+
+  function setHomeParams(next: {
+    q?: string;
+    majors?: string;
+    country?: string;
+    city?: string;
+    rating?: string;
+    degreeType?: string;
+  }) {
+    router.setParams({
+      q: next.q ?? (params.q as string | undefined),
+      majors: next.majors ?? (params.majors as string | undefined),
+      country: next.country ?? (params.country as string | undefined),
+      city: next.city ?? (params.city as string | undefined),
+      rating: next.rating ?? (params.rating as string | undefined),
+      degreeType: next.degreeType ?? (params.degreeType as string | undefined),
+    } as never);
+  }
 
   return (
     <Container className="bg-background">
@@ -61,11 +139,32 @@ export default function Home() {
         <Text className="mb-4 text-foreground text-xl font-bold">
           Search and apply to the best universities
         </Text>
-        <SearchInput />
+        <SearchInput
+          value={search}
+          onChangeText={(value) => {
+            setSearch(value);
+            setHomeParams({ q: value || undefined });
+          }}
+          onFilterPress={() => {
+            router.push({
+              pathname: "/filter",
+              params: {
+                q: params.q,
+                majors: params.majors,
+                country: params.country,
+                city: params.city,
+                rating: params.rating,
+                degreeType: params.degreeType,
+              },
+            } as never);
+          }}
+        />
         <TagInput.Root
           className="mt-4"
-          value={filterTags}
-          onChange={setFilterTags}
+          value={selectedMajors}
+          onChange={(next) => {
+            setHomeParams({ majors: next.length ? next.join(",") : undefined });
+          }}
         >
           <TagInput.Content>
             {CHIPS_MAJORS.map((data) => (
@@ -75,7 +174,17 @@ export default function Home() {
             ))}
             <Button
               onPress={() => {
-                router.push("/filter");
+                router.push({
+                  pathname: "/filter",
+                  params: {
+                    q: params.q,
+                    majors: params.majors,
+                    country: params.country,
+                    city: params.city,
+                    rating: params.rating,
+                    degreeType: params.degreeType,
+                  },
+                } as never);
               }}
               size="sm"
               variant="ghost"
@@ -85,7 +194,7 @@ export default function Home() {
           </TagInput.Content>
         </TagInput.Root>
         <View className="mt-7 flex-col gap-6">
-          {institutions.map((data) => (
+          {filteredInstitutions.map((data) => (
             <InstitutionCard.Root key={data.id} institution={data}>
               <InstitutionCard.Image url={data.image} />
               <InstitutionCard.Content>
