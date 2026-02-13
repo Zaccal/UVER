@@ -1,0 +1,325 @@
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: "../../apps/server/.env",
+});
+
+const IMAGE_URL =
+  "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1600&q=60";
+const LOGO_URL =
+  "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=512&q=60";
+
+const institutionsData = [
+  {
+    id: "kz-karaganda-buketov",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "Karaganda Buketov University",
+    description:
+      "A leading public university in Central Kazakhstan with strong programs in STEM and humanities.",
+    rating: 4.3,
+    website: "https://buketov.edu.kz",
+    address: "Universitetskaya St, Karaganda, Kazakhstan",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+    majors: ["Computer Science", "Mathematics", "Economics", "Law"],
+    country: "Kazakhstan",
+    latitude: "49.8047",
+    longitude: "73.1094",
+    city: "Karaganda",
+    degreeType: "Bachelor's",
+    state: "Karaganda Region",
+    tuitionPrice: "1500",
+    zipCode: "100000",
+  },
+  {
+    id: "kz-astana-nu",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "Nazarbayev University",
+    description:
+      "A modern research university in Astana focusing on engineering, science, and public policy.",
+    rating: 4.7,
+    website: "https://nu.edu.kz",
+    address: "53 Kabanbay Batyr Ave, Astana, Kazakhstan",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 40),
+    majors: [
+      "Computer Science",
+      "Mechanical Engineering",
+      "Biology",
+      "Public Policy",
+    ],
+    country: "Kazakhstan",
+    latitude: "51.0909",
+    longitude: "71.3983",
+    city: "Astana",
+    degreeType: "Bachelor's",
+    state: "Astana",
+    tuitionPrice: "6000",
+    zipCode: "010000",
+  },
+  {
+    id: "uz-tashkent-inha",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "INHA University in Tashkent",
+    description:
+      "An international university known for IT and engineering education in Uzbekistan.",
+    rating: 4.5,
+    website: "https://inha.uz",
+    address: "Ziyolilar St, Tashkent, Uzbekistan",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 35),
+    majors: [
+      "Software Engineering",
+      "Information Systems",
+      "Computer Networks",
+    ],
+    country: "Uzbekistan",
+    latitude: "41.3389",
+    longitude: "69.3349",
+    city: "Tashkent",
+    degreeType: "Bachelor's",
+    state: "Tashkent",
+    tuitionPrice: "3500",
+    zipCode: "100000",
+  },
+  {
+    id: "tr-istanbul-bogazici",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "Boğaziçi University",
+    description:
+      "A top-ranked Turkish university in Istanbul with strong engineering and business programs.",
+    rating: 4.6,
+    website: "https://www.boun.edu.tr",
+    address: "Bebek, Beşiktaş, Istanbul, Turkey",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 45),
+    majors: ["Computer Engineering", "Business Administration", "Economics"],
+    country: "Turkey",
+    latitude: "41.0850",
+    longitude: "29.0430",
+    city: "Istanbul",
+    degreeType: "Bachelor's",
+    state: "Istanbul",
+    tuitionPrice: "2500",
+    zipCode: "34342",
+  },
+  {
+    id: "de-munich-tum",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "Technical University of Munich (TUM)",
+    description:
+      "A leading European university for engineering, technology, and natural sciences.",
+    rating: 4.8,
+    website: "https://www.tum.de",
+    address: "Arcisstraße 21, 80333 Munich, Germany",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 50),
+    majors: ["Informatics", "Electrical Engineering", "Data Science"],
+    country: "Germany",
+    latitude: "48.1486",
+    longitude: "11.5676",
+    city: "Munich",
+    degreeType: "Master's",
+    state: "Bavaria",
+    tuitionPrice: "2000",
+    zipCode: "80333",
+  },
+  {
+    id: "uk-london-ucl",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "University College London (UCL)",
+    description:
+      "A global top university in London with broad academic strengths.",
+    rating: 4.7,
+    website: "https://www.ucl.ac.uk",
+    address: "Gower St, London, United Kingdom",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 55),
+    majors: ["Computer Science", "Psychology", "Economics", "Architecture"],
+    country: "United Kingdom",
+    latitude: "51.5246",
+    longitude: "-0.1340",
+    city: "London",
+    degreeType: "Bachelor's",
+    state: "England",
+    tuitionPrice: "28000",
+    zipCode: "WC1E 6BT",
+  },
+  {
+    id: "ca-toronto-uoft",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "University of Toronto",
+    description:
+      "Canada's leading research university with world-class programs across disciplines.",
+    rating: 4.8,
+    website: "https://www.utoronto.ca",
+    address: "27 King's College Cir, Toronto, ON, Canada",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 60),
+    majors: ["Computer Science", "Medicine", "Finance", "Engineering"],
+    country: "Canada",
+    latitude: "43.6629",
+    longitude: "-79.3957",
+    city: "Toronto",
+    degreeType: "Bachelor's",
+    state: "Ontario",
+    tuitionPrice: "45000",
+    zipCode: "M5S 1A1",
+  },
+  {
+    id: "us-caltech",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "California Institute of Technology (Caltech)",
+    description:
+      "A small, elite STEM-focused institution known for science and engineering.",
+    rating: 4.9,
+    website: "https://www.caltech.edu",
+    address: "1200 E California Blvd, Pasadena, CA, USA",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 65),
+    majors: ["Physics", "Computer Science", "Aerospace", "Mathematics"],
+    country: "United States",
+    latitude: "34.1377",
+    longitude: "-118.1253",
+    city: "Pasadena",
+    degreeType: "Bachelor's",
+    state: "California",
+    tuitionPrice: "60000",
+    zipCode: "91125",
+  },
+  {
+    id: "us-stanford",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "Stanford University",
+    description:
+      "A world-leading university in California, famous for entrepreneurship and research.",
+    rating: 4.9,
+    website: "https://www.stanford.edu",
+    address: "450 Serra Mall, Stanford, CA, USA",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 70),
+    majors: ["Computer Science", "Business", "AI", "Electrical Engineering"],
+    country: "United States",
+    latitude: "37.4275",
+    longitude: "-122.1697",
+    city: "Stanford",
+    degreeType: "Bachelor's",
+    state: "California",
+    tuitionPrice: "65000",
+    zipCode: "94305",
+  },
+  {
+    id: "us-mit",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "Massachusetts Institute of Technology (MIT)",
+    description:
+      "A top global university in Cambridge known for engineering, technology, and innovation.",
+    rating: 4.9,
+    website: "https://www.mit.edu",
+    address: "77 Massachusetts Ave, Cambridge, MA, USA",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 70),
+    majors: ["Computer Science", "Robotics", "Economics", "Aerospace"],
+    country: "United States",
+    latitude: "42.3601",
+    longitude: "-71.0942",
+    city: "Cambridge",
+    degreeType: "Bachelor's",
+    state: "Massachusetts",
+    tuitionPrice: "65000",
+    zipCode: "02139",
+  },
+  {
+    id: "us-harvard",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "Harvard University",
+    description:
+      "An Ivy League university with renowned programs in law, business, and sciences.",
+    rating: 4.8,
+    website: "https://www.harvard.edu",
+    address: "Cambridge, MA, USA",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 75),
+    majors: ["Law", "Business", "Computer Science", "Public Policy"],
+    country: "United States",
+    latitude: "42.3770",
+    longitude: "-71.1167",
+    city: "Cambridge",
+    degreeType: "Bachelor's",
+    state: "Massachusetts",
+    tuitionPrice: "62000",
+    zipCode: "02138",
+  },
+  {
+    id: "au-melbourne",
+    image: IMAGE_URL,
+    logo: LOGO_URL,
+    name: "The University of Melbourne",
+    description:
+      "A top Australian university with strong research output and global recognition.",
+    rating: 4.6,
+    website: "https://www.unimelb.edu.au",
+    address: "Parkville VIC 3010, Australia",
+    applicationDeadline: new Date(Date.now() + 1000 * 60 * 60 * 24 * 60),
+    majors: ["Computer Science", "Medicine", "Finance", "Design"],
+    country: "Australia",
+    latitude: "-37.7963",
+    longitude: "144.9614",
+    city: "Melbourne",
+    degreeType: "Master's",
+    state: "Victoria",
+    tuitionPrice: "42000",
+    zipCode: "3010",
+  },
+];
+
+async function main() {
+  const [{ db }, { Institutions }] = await Promise.all([
+    import("./index"),
+    import("./schema"),
+  ]);
+
+  const institutions: (typeof Institutions.$inferInsert)[] = institutionsData;
+
+  for (const i of institutions) {
+    await db
+      .insert(Institutions)
+      .values({
+        ...i,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .onConflictDoUpdate({
+        target: Institutions.id,
+        set: {
+          image: i.image,
+          logo: i.logo ?? LOGO_URL,
+          name: i.name,
+          description: i.description,
+          rating: i.rating ?? 5.0,
+          website: i.website,
+          address: i.address,
+          applicationDeadline: i.applicationDeadline,
+          majors: i.majors ?? [],
+          country: i.country,
+          latitude: i.latitude,
+          longitude: i.longitude,
+          city: i.city,
+          degreeType: i.degreeType,
+          state: i.state,
+          tuitionPrice: i.tuitionPrice,
+          zipCode: i.zipCode,
+          updatedAt: new Date(),
+        },
+      });
+  }
+
+  console.log(`Seeded institutions: ${institutions.length}`);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });

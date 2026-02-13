@@ -1,4 +1,11 @@
-import { Button, ErrorView, Spinner, Surface, TextField } from "heroui-native";
+import {
+  Button,
+  ErrorView,
+  Spinner,
+  Surface,
+  TextField,
+  useThemeColor,
+} from "heroui-native";
 import { useState } from "react";
 import { Text, View } from "react-native";
 
@@ -57,6 +64,7 @@ export function SignUp() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const foreground = useThemeColor("foreground");
 
   function handlePress() {
     signUpHandler({
@@ -82,7 +90,11 @@ export function SignUp() {
       <View className="gap-3">
         <TextField>
           <TextField.Label>Name</TextField.Label>
-          <TextField.Input value={name} onChangeText={setName} placeholder="John Doe" />
+          <TextField.Input
+            value={name}
+            onChangeText={setName}
+            placeholder="John Doe"
+          />
         </TextField>
 
         <TextField>
@@ -108,7 +120,7 @@ export function SignUp() {
 
         <Button onPress={handlePress} isDisabled={isLoading} className="mt-1">
           {isLoading ? (
-            <Spinner size="sm" color="default" />
+            <Spinner size="sm" color={foreground} />
           ) : (
             <Button.Label>Create Account</Button.Label>
           )}

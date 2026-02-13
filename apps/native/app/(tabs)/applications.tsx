@@ -1,52 +1,29 @@
 import { Container } from "@/components/container";
+import { orpc } from "@/utils/orpc";
 import { useRouter } from "expo-router";
-import { Card } from "heroui-native";
+import { Card, Spinner } from "heroui-native";
 import { ScrollView, Text, View, TouchableOpacity } from "react-native";
+import { useQuery } from "@tanstack/react-query";
 
-type ApplicationStatus = "pending" | "accepted" | "rejected";
+type ApplicationStatus = "pending" | "approved" | "rejected";
 
 type ApplicationItem = {
   id: string;
   institutionId: string;
   institutionName: string;
+  institutionImage: string;
   program: string;
+  message: string | null;
   status: ApplicationStatus;
-  submittedAt: string;
+  createdAt: string | Date;
 };
-
-const MOCK_APPLICATIONS: ApplicationItem[] = [
-  {
-    id: "1",
-    institutionId: "1",
-    institutionName: "Harvard University",
-    program: "Bachelor of Computer Science",
-    status: "pending",
-    submittedAt: "2026-01-12",
-  },
-  {
-    id: "2",
-    institutionId: "2",
-    institutionName: "Stanford University",
-    program: "Master in Data Science",
-    status: "accepted",
-    submittedAt: "2025-12-03",
-  },
-  {
-    id: "3",
-    institutionId: "3",
-    institutionName: "MIT",
-    program: "Bachelor of Electrical Engineering",
-    status: "rejected",
-    submittedAt: "2025-11-20",
-  },
-];
 
 function getStatusLabel(status: ApplicationStatus) {
   switch (status) {
     case "pending":
       return "Pending review";
-    case "accepted":
-      return "Accepted";
+    case "approved":
+      return "Approved";
     case "rejected":
       return "Rejected";
   }
@@ -56,7 +33,7 @@ function getStatusClassName(status: ApplicationStatus) {
   switch (status) {
     case "pending":
       return "text-yellow-500";
-    case "accepted":
+    case "approved":
       return "text-green-500";
     case "rejected":
       return "text-red-500";
@@ -64,8 +41,19 @@ function getStatusClassName(status: ApplicationStatus) {
 }
 
 export default function Application() {
-  const hasApplications = MOCK_APPLICATIONS.length > 0;
   const router = useRouter();
+
+  const applicationsQuery = useQuery(orpc.applications.list.queryOptions());
+  const applications = applicationsQuery.data ?? [];
+  const hasApplications = applications.length > 0;
+
+  if (applicationsQuery.isLoading) {
+    return (
+      <Container className="flex-1 bg-background items-center justify-center">
+        <Spinner size="lg" color="default" />
+      </Container>
+    );
+  }
 
   return (
     <Container className="flex-1 bg-background pt-4">
@@ -90,7 +78,7 @@ export default function Application() {
 
         {hasApplications && (
           <View className="flex-col gap-4">
-            {MOCK_APPLICATIONS.map((application) => (
+            {applications.map((application) => (
               <TouchableOpacity
                 key={application.id}
                 activeOpacity={0.8}
@@ -121,7 +109,7 @@ export default function Application() {
                   </View>
                   <View className="mt-3">
                     <Text className="text-xs text-gray-400 light:text-gray-700">
-                      Sent on {application.submittedAt}
+                      Sent on {new Date(application.createdAt).toDateString()}
                     </Text>
                   </View>
                 </Card>

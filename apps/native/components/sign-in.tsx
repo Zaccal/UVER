@@ -1,4 +1,11 @@
-import { Button, ErrorView, Spinner, Surface, TextField } from "heroui-native";
+import {
+  Button,
+  ErrorView,
+  Spinner,
+  Surface,
+  TextField,
+  useThemeColor,
+} from "heroui-native";
 import { useState } from "react";
 import { Text, View } from "react-native";
 
@@ -9,6 +16,7 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const signInMutation = useSignIn();
+  const foreground = useThemeColor("foreground");
 
   function handleLogin() {
     setError(null);
@@ -66,7 +74,7 @@ function SignIn() {
           className="mt-1"
         >
           {signInMutation.isPending ? (
-            <Spinner size="sm" color="default" />
+            <Spinner size="sm" color={foreground} />
           ) : (
             <Button.Label>Sign In</Button.Label>
           )}

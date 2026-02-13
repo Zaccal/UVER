@@ -1,6 +1,7 @@
-import { pgTable, real, text, timestamp } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, real, text, timestamp } from "drizzle-orm/pg-core";
 import { LOGO_PLACEHOLDER } from "../lib/constants";
 import { relations } from "drizzle-orm";
+import { user } from "./auth";
 
 export * from "./auth";
 
@@ -41,15 +42,51 @@ export const InstitutionsComment = pgTable("institutions_comment", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
   comment: text("comment").notNull(),
-})
+});
 
 export const InstitutionsRelations = relations(Institutions, ({ many }) => ({
   comments: many(InstitutionsComment),
 }));
 
-export const InstitutionsCommentRelations = relations(InstitutionsComment, ({ one }) => ({
+export const InstitutionsCommentRelations = relations(
+  InstitutionsComment,
+  ({ one }) => ({
+    institution: one(Institutions, {
+      fields: [InstitutionsComment.institutionId],
+      references: [Institutions.id],
+    }),
+  }),
+);
+
+export const applicationStatus = pgEnum("application_status", [
+  "pending",
+  "approved",
+  "rejected",
+]);
+
+export const Applications = pgTable("applications", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  institutionId: text("institution_id")
+    .notNull()
+    .references(() => Institutions.id, { onDelete: "cascade" }),
+  program: text("program").notNull(),
+  message: text("message"),
+  status: applicationStatus("status").default("pending").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
+
+export type Application = typeof Applications.$inferSelect;
+
+export const ApplicationsRelations = relations(Applications, ({ one }) => ({
   institution: one(Institutions, {
-    fields: [InstitutionsComment.institutionId],
+    fields: [Applications.institutionId],
     references: [Institutions.id],
   }),
 }));
